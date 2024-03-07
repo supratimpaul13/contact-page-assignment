@@ -1,14 +1,15 @@
 import { useState } from "react";
-import handleSubmit from "./Utilities/FormSubmit";
-import "./App.css";
-import "./assets/fontawesome-6.1.1/css/all.min.css";
-import ValidateEmail from "./Utilities/ValidateEmail";
-import ValidatePhoneNumber from "./Utilities/ValidatePhone";
-import Lottie from "lottie-react";
-import animationData from "./assets/Animation - 1709800101299.json";
-import MyContactInfo from "./Utilities/myContactInfo";
+import handleSubmit from "./Utilities/FormSubmit"; // Importing the function to handle form submission
+import "./App.css"; // Importing CSS file for styling
+import "./assets/fontawesome-6.1.1/css/all.min.css"; // Importing FontAwesome for icons
+import ValidateEmail from "./Utilities/ValidateEmail"; // Importing component to validate email
+import ValidatePhoneNumber from "./Utilities/ValidatePhone"; // Importing component to validate phone number
+import Lottie from "lottie-react"; // Importing Lottie for animations
+import animationData from "./assets/Animation - 1709800101299.json"; // Importing animation data
+import MyContactInfo from "./Utilities/myContactInfo"; // Importing component to display contact information
 
 function App() {
+  // States for form fields and validation
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -17,26 +18,33 @@ function App() {
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
   const [resetFields, setResetFields] = useState(false);
 
+  // Function to handle email input change
   const handleEmailChange = (value) => {
     setEmail(value);
   };
 
+  // Function to handle email validation change
   const handleEmailValidityChange = (isValid) => {
     setIsEmailValid(isValid);
   };
 
+  // Function to handle phone number input change
   const handlePhoneNumberChange = (value) => {
     setNumber(value);
   };
 
+  // Function to handle phone number validation change
   const handlePhoneNumberValidityChange = (isValid) => {
     setIsPhoneNumberValid(isValid);
   };
 
+  // Function to handle form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    // Checking if email and phone number are valid before submission
     if (isEmailValid && isPhoneNumberValid) {
+      // Creating data object to be submitted
       const data = {
         Name: name,
         Email: email,
@@ -44,7 +52,9 @@ function App() {
         Message: message,
       };
 
+      // Handling form submission
       handleSubmit(data, () => {
+        // Resetting form fields after successful submission
         setName("");
         setEmail("");
         setNumber("");
@@ -56,11 +66,13 @@ function App() {
     }
   };
 
+  // JSX structure for the component
   return (
     <>
       <div className="canvas">
-        <div className="gooey1"></div>
+        <div className="gooey1"></div> {/* Placeholder div */}
 
+        {/* Left side of the page with form */}
         <div className="left">
           <h1>Contact Page</h1>
           <form
@@ -73,6 +85,7 @@ function App() {
               gap: "10px",
             }}
           >
+            {/* Input field for name */}
             <div className="input-field">
               <input
                 type="text"
@@ -85,18 +98,24 @@ function App() {
               />
             </div>
             <br />
+
+            {/* Component for validating email */}
             <ValidateEmail
               onEmailChange={handleEmailChange}
               onEmailValidityChange={handleEmailValidityChange}
               resetFields={resetFields}
             />
             <br />
+
+            {/* Component for validating phone number */}
             <ValidatePhoneNumber
               onPhoneNumberChange={handlePhoneNumberChange}
               onPhoneNumberValidityChange={handlePhoneNumberValidityChange}
               resetFields={resetFields}
             />
             <br />
+
+            {/* Input field for message */}
             <div className="input-field">
               <input
                 type="text"
@@ -109,16 +128,21 @@ function App() {
               />
             </div>
             <br />
+
+            {/* Submit button */}
             <div className="Submit-btn">
               <button type="submit" className="button"> <span> Send </span> </button>
             </div>
           </form>
         </div>
 
+        {/* Right side of the page with animation and contact info */}
         <div className="right">
           <div className="profile-card">
+            {/* Animation component */}
             <Lottie animationData={animationData} />
           </div>
+          {/* Contact info component */}
           <MyContactInfo />
         </div>
       </div>
