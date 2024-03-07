@@ -1,25 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; // Importing useState and useEffect hooks
 
+// Component to validate email address
 const ValidateEmail = ({ onEmailChange, onEmailValidityChange, resetFields }) => {
+  // State to store email value and validity
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(true);
 
+  // Function to validate email address
   const emailValidation = (e) => {
     const emailValue = e.target.value;
     setEmail(emailValue);
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValidEmail = regex.test(emailValue);
-    setIsValid(isValidEmail);
-    onEmailChange(emailValue); // Pass email value to parent
-    onEmailValidityChange(isValidEmail); // Pass validity state to parent
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for email validation
+    const isValidEmail = regex.test(emailValue); // Checking if email matches the pattern
+    setIsValid(isValidEmail); // Updating validity state
+    onEmailChange(emailValue); // Passing email value to parent component
+    onEmailValidityChange(isValidEmail); // Passing validity state to parent component
   };
 
+  // Effect to clear email field if resetFields changes to true
   useEffect(() => {
     if (resetFields) {
-      setEmail(""); // Clear email field if resetFields changes to true
+      setEmail(""); // Clearing email field
     }
   }, [resetFields]);
 
+  // JSX structure for the component
   return (
     <div
       style={{
@@ -29,6 +34,7 @@ const ValidateEmail = ({ onEmailChange, onEmailValidityChange, resetFields }) =>
         gap: "5px",
       }}
     >
+      {/* Input field for email */}
       <div className="input-field">
         <input
           type="text"
@@ -46,6 +52,7 @@ const ValidateEmail = ({ onEmailChange, onEmailValidityChange, resetFields }) =>
           value={email}
           required
         />
+        {/* Icon indicating email validity */}
         <div
           className={
             email.length === 0
@@ -66,6 +73,7 @@ const ValidateEmail = ({ onEmailChange, onEmailValidityChange, resetFields }) =>
           ></i>
         </div>
       </div>
+      {/* Message indicating email validation result */}
       <p
         className={
           email.length === 0
@@ -86,4 +94,4 @@ const ValidateEmail = ({ onEmailChange, onEmailValidityChange, resetFields }) =>
   );
 };
 
-export default ValidateEmail;
+export default ValidateEmail; // Exporting the component
